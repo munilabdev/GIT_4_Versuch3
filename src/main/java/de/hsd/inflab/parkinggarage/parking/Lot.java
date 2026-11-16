@@ -64,14 +64,14 @@ public class Lot {
     }
 
     public Ticket enter(Vehicle vehicle) {
-        Ticket ticket = entrance.processIncoming(isFull(), vehicle.getVehicleType(), calculateOccupancy());
+        Ticket ticket = entrance.processIncoming(isFull(), vehicle.getVehicleType(), calculateOccupancy(), clock);
         if (ticket.isValid())
             assignSpot(vehicle);
         return ticket;
     }
 
     public Receipt exit(Ticket ticket, Vehicle vehicle) {
-        Receipt receipt = exit.processOutgoing(clock.now(), ticket.getTimeStamp(), vehicle.getVehicleType());
+        Receipt receipt = exit.processOutgoing(clock, ticket.getTimeStamp(), vehicle.getVehicleType());
         releaseSpot(vehicle);
         return receipt;
     }
